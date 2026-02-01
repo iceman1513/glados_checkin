@@ -6,16 +6,19 @@ const glados = async () => {
     try {
       const common = {
         'cookie': cookie,
-        'referer': 'https://glados.rocks/console/checkin',
+        // 1. 修改referer地址为新域名
+        'referer': 'https://glados.cloud/console/checkin',
         'user-agent': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)',
       }
-      const action = await fetch('https://glados.rocks/api/user/checkin', {
+      // 2. 修改签到接口地址为新域名
+      const action = await fetch('https://glados.cloud/api/user/checkin', {
         method: 'POST',
         headers: { ...common, 'content-type': 'application/json' },
         body: '{"token":"glados.one"}',
       }).then((r) => r.json())
       if (action?.code) throw new Error(action?.message)
-      const status = await fetch('https://glados.rocks/api/user/status', {
+      // 3. 修改状态查询接口地址为新域名
+      const status = await fetch('https://glados.cloud/api/user/status', {
         method: 'GET',
         headers: { ...common },
       }).then((r) => r.json())
